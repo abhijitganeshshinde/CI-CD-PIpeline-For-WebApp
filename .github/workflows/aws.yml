@@ -23,13 +23,7 @@ jobs:
         run: |
           echo "$EC2_PRIVATE_KEY" > /tmp/private-key.pem
           chmod 600 /tmp/private-key.pem
-          scp -r -i /tmp/private-key.pem -o StrictHostKeyChecking=no . ubuntu@ec2-3-108-40-20.ap-south-1.compute.amazonaws.com:/var/www/html/
+          scp -i /tmp/private-key.pem -o StrictHostKeyChecking=no -r . ubuntu@ec2-3-108-40-20.ap-south-1.compute.amazonaws.com:/var/www/html/
           rm /tmp/private-key.pem
-        env:
-          EC2_PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}
-
-      - name: Use sudo to copy
-        run: |
-          ssh -i /tmp/private-key.pem -o StrictHostKeyChecking=no ubuntu@ec2-3-108-40-20.ap-south-1.compute.amazonaws.com "sudo cp -r /var/www/html/*
         env:
           EC2_PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}
