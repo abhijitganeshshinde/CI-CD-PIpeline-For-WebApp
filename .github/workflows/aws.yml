@@ -24,4 +24,4 @@ jobs:
           #TARGET: ${{ secrets.TARGET_DIR }}
           #COMMAND: 'sudo rsync -av --exclude="..." . $TARGET'
           run: |
-                'cd /var/www/html && sudo git clone https://github.com/abhijitganeshshinde/CI-CD-PIpeline-For-WebApp.git'
+                'cd /var/www/html/ && sudo git clone https://github.com/abhijitganeshshinde/CI-CD-PIpeline-For-WebApp.git'
