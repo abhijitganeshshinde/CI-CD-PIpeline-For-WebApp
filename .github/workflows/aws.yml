@@ -23,5 +23,5 @@ jobs:
           REMOTE_USER: ${{ secrets.USERNAME }}
           #TARGET: ${{ secrets.TARGET_DIR }}
           #COMMAND: 'sudo rsync -av --exclude="..." . $TARGET'
-         run: |
+          run: |
                 ssh -i /path/to/your/private-key.pem $REMOTE_USER@$REMOTE_HOST 'sudo git clone https://github.com/abhijitganeshshinde/CI-CD-PIpeline-For-WebApp.git /var/www/html'
