@@ -1,5 +1,6 @@
 name: Push-to-EC2
 
+# Trigger deployment only on push to master branch
 on:
   push:
     branches:
@@ -14,16 +15,11 @@ jobs:
       - name: Checkout the files
         uses: actions/checkout@v2
 
-      - name: Set up SSH key
-        run: echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/deploy_key.pem
-        shell: bash
-
-      - name: Set correct permissions for SSH key
-        run: chmod 600 ~/.ssh/deploy_key.pem
-        shell: bash
-
-      - name: Deploy to Server
-        run: |
-          rsync -e "ssh -i ~/.ssh/deploy_key.pem -o StrictHostKeyChecking=no" \
-            -av --exclude="..." . ${{ secrets.USERNAME }}@${{ secrets.HOST_DNS }}:${{ secrets.TARGET_DIR }}
-        shell: bash
+      - name: Deploy to Server 1
+        uses: easingthemes/ssh-deploy@main
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
+          REMOTE_HOST: ${{ secrets.HOST_DNS }}
+          REMOTE_USER: ${{ secrets.USERNAME }}
+          TARGET: ${{ secrets.TARGET_DIR }}
+          COMMAND: 'sudo rsync -av --exclude="..." . $TARGET'
