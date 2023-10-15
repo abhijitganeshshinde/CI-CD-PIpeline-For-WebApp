@@ -23,5 +23,5 @@ jobs:
       run: |
         echo "${{ secrets.EC2_PRIVATE_KEY }}" > /tmp/private-key.pem
         chmod 600 /tmp/private-key.pem
-        scp -r -i /tmp/private-key.pem . ubuntu.ec2.instance:/var/www/html/
+        scp -r -i /tmp/private-key.pem . ubuntu@ec2-public-dns:/var/www/html/
         rm /tmp/private-key.pem
